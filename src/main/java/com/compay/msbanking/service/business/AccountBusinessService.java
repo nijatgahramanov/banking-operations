@@ -3,6 +3,7 @@ package com.compay.msbanking.service.business;
 import com.compay.msbanking.dto.request.AccountRequest;
 import com.compay.msbanking.dto.request.CustomerRequest;
 import com.compay.msbanking.dto.response.AccountResponse;
+import com.compay.msbanking.dto.response.BaseResponse;
 import com.compay.msbanking.dto.response.CustomerResponse;
 import com.compay.msbanking.entity.Account;
 import com.compay.msbanking.entity.Customer;
@@ -26,41 +27,55 @@ public class AccountBusinessService {
         this.customerFunctionalService = customerFunctionalService;
     }
 
-    public List<AccountResponse> getAccounts() {
-        List<AccountResponse> response =accountFunctionalService.getAccounts()
+    public BaseResponse getAccounts() {
+        BaseResponse response = new BaseResponse();
+        List<AccountResponse> responseList =accountFunctionalService.getAccounts()
                 .stream()
                 .map((Account account)->(AccountFactory.convertAccountToResponse(account)))
                 .collect(Collectors.toList());
+        response.setData(responseList);
 
         return response;
 
     }
 
 
-    public AccountResponse getAccountById(Long id) {
-        return  AccountFactory.convertAccountToResponse(accountFunctionalService.getAccountById(id));
+    public BaseResponse getAccountById(Long id) {
+        BaseResponse response = new BaseResponse();
+        AccountResponse accountResponse = AccountFactory.convertAccountToResponse(accountFunctionalService.getAccountById(id));
+        response.setData(accountResponse);
+        return response;
     }
 
 
-    public AccountResponse addAccount(AccountRequest request) {
+    public BaseResponse addAccount(AccountRequest request) {
+        BaseResponse response = new BaseResponse();
         Account account = AccountFactory
                 .convertRequestToAccount(customerFunctionalService.getCustomerById(request.getCustomerId()),request);
         accountFunctionalService.addAccount(account);
-        return AccountFactory.convertAccountToResponse(account);
+        AccountResponse accountResponse = AccountFactory.convertAccountToResponse(account);
+        response.setData(accountResponse);
+        return response;
     }
 
 
-    public AccountResponse updateAccount(Long id,AccountRequest accountRequest) {
+    public BaseResponse updateAccount(Long id, AccountRequest accountRequest) {
+        BaseResponse response = new BaseResponse();
         Account account=AccountFactory.updateAccount(accountFunctionalService.getAccountById(id), accountRequest);
         accountFunctionalService.updateAccount(account);
-        return AccountFactory.convertAccountToResponse(account);
+        AccountResponse accountResponse = AccountFactory.convertAccountToResponse(account);
+        response.setData(accountResponse);
+        return response;
     }
 
-    public AccountResponse deleteAccount(Long id){
+    public BaseResponse deleteAccount(Long id){
+        BaseResponse response = new BaseResponse();
         Account account = accountFunctionalService.getAccountById(id);
         account.setActive(0);
         accountFunctionalService.updateAccount(account);
-        return AccountFactory.convertAccountToResponse(account);
+        AccountResponse accountResponse = AccountFactory.convertAccountToResponse(account);
+        response.setData(accountResponse);
+        return response;
     }
 
 
