@@ -5,12 +5,13 @@ import com.compay.msbanking.enums.TransferStatusEnum;
 import com.compay.msbanking.enums.TransferTypeEnum;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name="transfer")
-public class Transfer {
+public class Transfer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,103 +83,116 @@ public class Transfer {
         return id;
     }
 
-    public void setId(Long id) {
+    public Transfer setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public Long getDebitorCardId() {
         return debitorCardId;
     }
 
-    public void setDebitorCardId(Long debitorCardId) {
+    public Transfer setDebitorCardId(Long debitorCardId) {
         this.debitorCardId = debitorCardId;
+        return this;
     }
 
     public Long getCreditorCardId() {
         return creditorCardId;
     }
 
-    public void setCreditorCardId(Long creditorCardID) {
-        this.creditorCardId = creditorCardID;
+    public Transfer setCreditorCardId(Long creditorCardId) {
+        this.creditorCardId = creditorCardId;
+        return this;
     }
 
     public Long getDebitorAccountId() {
         return debitorAccountId;
     }
 
-    public void setDebitorAccountId(Long debitorAccountID) {
-        this.debitorAccountId = debitorAccountID;
+    public Transfer setDebitorAccountId(Long debitorAccountId) {
+        this.debitorAccountId = debitorAccountId;
+        return this;
     }
 
     public Long getCreditorAccountId() {
         return creditorAccountId;
     }
 
-    public void setCreditorAccountId(Long creditorAccountID) {
-        this.creditorAccountId = creditorAccountID;
+    public Transfer setCreditorAccountId(Long creditorAccountId) {
+        this.creditorAccountId = creditorAccountId;
+        return this;
     }
 
     public BigDecimal getDebitorAmount() {
         return debitorAmount;
     }
 
-    public void setDebitorAmount(BigDecimal debitorAmount) {
+    public Transfer setDebitorAmount(BigDecimal debitorAmount) {
         this.debitorAmount = debitorAmount;
+        return this;
     }
 
     public CurrencyEnum getDebitorCurrency() {
         return debitorCurrency;
     }
 
-    public void setDebitorCurrency(CurrencyEnum debitorCurrency) {
+    public Transfer setDebitorCurrency(CurrencyEnum debitorCurrency) {
         this.debitorCurrency = debitorCurrency;
+        return this;
     }
 
     public BigDecimal getCreditorAmount() {
         return creditorAmount;
     }
 
-    public void setCreditorAmount(BigDecimal creditorAmount) {
+    public Transfer setCreditorAmount(BigDecimal creditorAmount) {
         this.creditorAmount = creditorAmount;
+        return this;
     }
 
     public CurrencyEnum getCreditorCurrency() {
         return creditorCurrency;
     }
 
-    public void setCreditorCurrency(CurrencyEnum creditorCurrency) {
+    public Transfer setCreditorCurrency(CurrencyEnum creditorCurrency) {
         this.creditorCurrency = creditorCurrency;
+        return this;
     }
 
     public TransferTypeEnum getTransferType() {
         return transferType;
     }
 
-    public void setTransferType(TransferTypeEnum transferType) {
+    public Transfer setTransferType(TransferTypeEnum transferType) {
         this.transferType = transferType;
+        return this;
     }
 
     public TransferStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(TransferStatusEnum status) {
+    public Transfer setStatus(TransferStatusEnum status) {
         this.status = status;
+        return this;
     }
 
     public Integer getActive() {
         return active;
     }
 
-    public void setActive(Integer active) {
+    public Transfer setActive(Integer active) {
         this.active = active;
+        return this;
     }
 
     public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public Transfer setCreateDate(Date createDate) {
         this.createDate = createDate;
+        return this;
     }
 }

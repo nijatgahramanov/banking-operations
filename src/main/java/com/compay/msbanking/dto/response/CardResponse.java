@@ -3,10 +3,11 @@ package com.compay.msbanking.dto.response;
 import com.compay.msbanking.enums.CardStatusEnum;
 import com.compay.msbanking.enums.CurrencyEnum;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CardResponse {
+public class CardResponse implements Serializable {
 
     private Long id;
 

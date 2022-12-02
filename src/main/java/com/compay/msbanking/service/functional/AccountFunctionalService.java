@@ -30,7 +30,7 @@ public class AccountFunctionalService {
 
     public Account getAccountById(Long id) {
         return accountRepository.findByIdAndActive(id, 1)
-                .orElseThrow(() -> (BaseException.of(ErrorEnum.ACCOUNT_NOT_FOUND)));
+                .orElse(null);
     }
 
     public Account addAccount(Account account) {

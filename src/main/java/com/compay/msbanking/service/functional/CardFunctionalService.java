@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class CardFunctionalService {
 
@@ -18,24 +19,24 @@ public class CardFunctionalService {
         this.cardRepository = cardRepository;
     }
 
-    public Card addCard(Card card){
+    public Card addCard(Card card) {
         return cardRepository.save(card);
     }
 
-    public Card getCard(Long id){
-        return cardRepository.findByIdAndActive(id,1)
-                .orElseThrow(()->(BaseException.of(ErrorEnum.CARD_NOT_FOUND)));
+    public Card getCard(Long id) {
+        return cardRepository.findByIdAndActive(id, 1)
+                .orElse(null);
     }
 
-    public List<Card> getCards(){
-        return cardRepository.findByActive(1).orElseGet(()->(new ArrayList()));
+    public List<Card> getCards() {
+        return cardRepository.findByActive(1).orElseGet(() -> (new ArrayList()));
     }
 
-    public Card updateCard(Card card){
+    public Card updateCard(Card card) {
         return cardRepository.save(card);
     }
 
-    public Card findCardByNumber(String number){
-        return cardRepository.findByNumber(number).orElseThrow(()->(BaseException.of(ErrorEnum.CARD_NOT_FOUND)));
+    public Card findCardByNumber(String number) {
+        return cardRepository.findByNumber(number).orElseThrow(() -> (BaseException.of(ErrorEnum.CARD_NOT_FOUND)));
     }
 }
