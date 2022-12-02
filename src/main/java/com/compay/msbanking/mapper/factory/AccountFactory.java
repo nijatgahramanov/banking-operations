@@ -23,16 +23,10 @@ public class AccountFactory {
     public static Account convertRequestToAccount(Customer customer,AccountRequest request){
         Account account = new Account();
 
-        if(!(StringUtils.hasText(request.getIban())
-                || StringUtils.hasText(request.getNumber()))){
-            throw BaseException.of(ErrorEnum.INVALID_REQUEST);
-        }
+
 
             account.setBalance(request.getBalance());
             account.setCurrency(request.getCurrency());
-            account.setIban(request.getIban());
-            account.setStatus(request.getStatus());
-            account.setNumber(request.getNumber());
             account.setCustomer(customer);
         return account;
     }
@@ -43,15 +37,6 @@ public class AccountFactory {
         }
         if(StringUtils.hasText(request.getCurrency().toString())){
             account.setCurrency(request.getCurrency());
-        }
-        if(StringUtils.hasText(request.getIban())){
-            account.setIban(request.getIban());
-        }
-        if(StringUtils.hasText(request.getStatus().toString())){
-            account.setStatus(request.getStatus());
-        }
-        if(StringUtils.hasText(request.getNumber())){
-            account.setNumber(request.getNumber());
         }
         return account;
     }
@@ -66,7 +51,8 @@ public class AccountFactory {
                     .collect(Collectors.toList());
         }
 
-        return new AccountResponse().setBalance(account.getBalance())
+        return new AccountResponse()
+                .setBalance(account.getBalance())
                 .setCurrency(account.getCurrency())
                 .setIban(account.getIban())
                 .setId(account.getId())

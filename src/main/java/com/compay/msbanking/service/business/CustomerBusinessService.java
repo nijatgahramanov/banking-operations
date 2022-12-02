@@ -42,7 +42,6 @@ public class CustomerBusinessService {
 
 
     public CustomerResponse getCustomerById(Long id) {
-
         return  CustomerFactory.convertCustomerToResponse(customerFunctionalService.getCustomerById(id));
     }
 

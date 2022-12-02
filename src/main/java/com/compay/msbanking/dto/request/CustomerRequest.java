@@ -2,6 +2,8 @@ package com.compay.msbanking.dto.request;
 
 
 import com.compay.msbanking.enums.CustomerTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
 

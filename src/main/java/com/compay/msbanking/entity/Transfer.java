@@ -17,16 +17,16 @@ public class Transfer {
     private Long id;
 
     @Column(name = "debitor_card_id")
-    private Long debitorCardID;
+    private Long debitorCardId;
 
     @Column(name = "creditor_card_id")
-    private Long creditorCardID;
+    private Long creditorCardId;
 
     @Column(name = "debitor_account_id")
-    private Long debitorAccountID;
+    private Long debitorAccountId;
 
     @Column(name = "creditor_account_id")
-    private Long creditorAccountID;
+    private Long creditorAccountId;
 
     @Column(name = "debitor_amount")
     private BigDecimal debitorAmount;
@@ -60,14 +60,14 @@ public class Transfer {
 
     public Transfer(){}
 
-    public Transfer(Long debitorCardID, Long creditorCardID, Long debitorAccountID, Long creditorAccountID,
+    public Transfer(Long debitorCardId, Long creditorCardId, Long debitorAccountId, Long creditorAccountId,
                     BigDecimal debitorAmount, CurrencyEnum debitorCurrency, BigDecimal creditorAmount,
                     CurrencyEnum creditorCurrency, TransferTypeEnum transferType, TransferStatusEnum status,
                     Integer active, Date createDate) {
-        this.debitorCardID = debitorCardID;
-        this.creditorCardID = creditorCardID;
-        this.debitorAccountID = debitorAccountID;
-        this.creditorAccountID = creditorAccountID;
+        this.debitorCardId = debitorCardId;
+        this.creditorCardId = creditorCardId;
+        this.debitorAccountId = debitorAccountId;
+        this.creditorAccountId = creditorAccountId;
         this.debitorAmount = debitorAmount;
         this.debitorCurrency = debitorCurrency;
         this.creditorAmount = creditorAmount;
@@ -86,36 +86,36 @@ public class Transfer {
         this.id = id;
     }
 
-    public Long getDebitorCardID() {
-        return debitorCardID;
+    public Long getDebitorCardId() {
+        return debitorCardId;
     }
 
-    public void setDebitorCardID(Long debitorCardID) {
-        this.debitorCardID = debitorCardID;
+    public void setDebitorCardId(Long debitorCardId) {
+        this.debitorCardId = debitorCardId;
     }
 
-    public Long getCreditorCardID() {
-        return creditorCardID;
+    public Long getCreditorCardId() {
+        return creditorCardId;
     }
 
-    public void setCreditorCardID(Long creditorCardID) {
-        this.creditorCardID = creditorCardID;
+    public void setCreditorCardId(Long creditorCardID) {
+        this.creditorCardId = creditorCardID;
     }
 
-    public Long getDebitorAccountID() {
-        return debitorAccountID;
+    public Long getDebitorAccountId() {
+        return debitorAccountId;
     }
 
-    public void setDebitorAccountID(Long debitorAccountID) {
-        this.debitorAccountID = debitorAccountID;
+    public void setDebitorAccountId(Long debitorAccountID) {
+        this.debitorAccountId = debitorAccountID;
     }
 
-    public Long getCreditorAccountID() {
-        return creditorAccountID;
+    public Long getCreditorAccountId() {
+        return creditorAccountId;
     }
 
-    public void setCreditorAccountID(Long creditorAccountID) {
-        this.creditorAccountID = creditorAccountID;
+    public void setCreditorAccountId(Long creditorAccountID) {
+        this.creditorAccountId = creditorAccountID;
     }
 
     public BigDecimal getDebitorAmount() {

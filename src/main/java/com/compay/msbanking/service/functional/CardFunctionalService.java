@@ -34,4 +34,8 @@ public class CardFunctionalService {
     public Card updateCard(Card card){
         return cardRepository.save(card);
     }
+
+    public Card findCardByNumber(String number){
+        return cardRepository.findByNumber(number).orElseThrow(()->(BaseException.of(ErrorEnum.CARD_NOT_FOUND)));
+    }
 }

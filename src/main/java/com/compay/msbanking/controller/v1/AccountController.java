@@ -18,10 +18,10 @@ public class AccountController {
     }
 
     @PostMapping
-    public ResponseEntity addAccount(@RequestBody AccountRequest requestAccount){
+    public ResponseEntity addAccount(@RequestBody AccountRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new BaseResponse().success(accountService.addAccount(requestAccount)));
+                .body(new BaseResponse().success(accountService.addAccount(request)));
     }
 
     @GetMapping

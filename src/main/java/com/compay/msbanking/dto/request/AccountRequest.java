@@ -8,45 +8,35 @@ import java.math.BigDecimal;
 
 public class AccountRequest implements Serializable {
 
-    private String iban;
 
-    private String number;
 
     private CurrencyEnum currency;
 
     private BigDecimal balance;
 
+    private Long customerId;
+
     private AccountStatusEnum status;
 
-    private Long customerId;
+    public AccountStatusEnum getStatus() {
+        return status;
+    }
+
+    public AccountRequest setStatus(AccountStatusEnum status) {
+        this.status = status;
+        return this;
+    }
 
     public AccountRequest() {
     }
 
-    public AccountRequest(String iban, String number, CurrencyEnum currency, BigDecimal balance,
-                          AccountStatusEnum status, Long customerId) {
-        this.iban = iban;
-        this.number = number;
+    public AccountRequest(CurrencyEnum currency, BigDecimal balance,
+                          Long customerId, AccountStatusEnum status) {
+
         this.currency = currency;
         this.balance = balance;
-        this.status = status;
         this.customerId = customerId;
-    }
-
-    public String getIban() {
-        return iban;
-    }
-
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
+        this.status = status;
     }
 
     public CurrencyEnum getCurrency() {
@@ -65,13 +55,8 @@ public class AccountRequest implements Serializable {
         this.balance = balance;
     }
 
-    public AccountStatusEnum getStatus() {
-        return status;
-    }
 
-    public void setStatus(AccountStatusEnum status) {
-        this.status = status;
-    }
+
 
     public Long getCustomerId() {
         return customerId;

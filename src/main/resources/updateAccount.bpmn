@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0mnjlc6" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.1.1">
+  <bpmn:collaboration id="Collaboration_1j4t8hk">
+    <bpmn:participant id="Participant_1ipwt8p" processRef="Process_09ncy1r" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_09ncy1r" name="updateAccount" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0usumw6</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0fm17la" name="checkAccountById" camunda:delegateExpression="${checkAccountById}">
+      <bpmn:incoming>Flow_0usumw6</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kpdv78</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0usumw6" sourceRef="StartEvent_1" targetRef="Activity_0fm17la" />
+    <bpmn:exclusiveGateway id="Gateway_1m9phm7" default="Flow_0v61qhi">
+      <bpmn:incoming>Flow_0kpdv78</bpmn:incoming>
+      <bpmn:outgoing>Flow_0v61qhi</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1nulfem</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0kpdv78" sourceRef="Activity_0fm17la" targetRef="Gateway_1m9phm7" />
+    <bpmn:sequenceFlow id="Flow_0v61qhi" sourceRef="Gateway_1m9phm7" targetRef="Event_1557fn5" />
+    <bpmn:endEvent id="Event_1557fn5">
+      <bpmn:incoming>Flow_0v61qhi</bpmn:incoming>
+      <bpmn:errorEventDefinition id="ErrorEventDefinition_1xsw7lg" errorRef="Error_06yatjo" />
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1nulfem" sourceRef="Gateway_1m9phm7" targetRef="Activity_0n7anaf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${haveAccount}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Activity_0n7anaf" name="updateAccount" camunda:delegateExpression="${updateAccountDelegate}">
+      <bpmn:incoming>Flow_1nulfem</bpmn:incoming>
+      <bpmn:outgoing>Flow_0eqgkqt</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_1wmg67y">
+      <bpmn:incoming>Flow_0eqgkqt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0eqgkqt" sourceRef="Activity_0n7anaf" targetRef="Event_1wmg67y" />
+  </bpmn:process>
+  <bpmn:error id="Error_0ydfv6j" name="Error_3cp1ihn" />
+  <bpmn:error id="Error_06yatjo" name="Error_1199g8s" errorCode="404" camunda:errorMessage="Account not found" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1j4t8hk">
+      <bpmndi:BPMNShape id="Participant_1ipwt8p_di" bpmnElement="Participant_1ipwt8p" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="859" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0usumw6_di" bpmnElement="Flow_0usumw6">
+        <di:waypoint x="215" y="177" />
+        <di:waypoint x="310" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kpdv78_di" bpmnElement="Flow_0kpdv78">
+        <di:waypoint x="410" y="177" />
+        <di:waypoint x="505" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0v61qhi_di" bpmnElement="Flow_0v61qhi">
+        <di:waypoint x="530" y="202" />
+        <di:waypoint x="530" y="262" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nulfem_di" bpmnElement="Flow_1nulfem">
+        <di:waypoint x="555" y="177" />
+        <di:waypoint x="650" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0eqgkqt_di" bpmnElement="Flow_0eqgkqt">
+        <di:waypoint x="750" y="177" />
+        <di:waypoint x="852" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0flafun_di" bpmnElement="Activity_0fm17la">
+        <dc:Bounds x="310" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1m9phm7_di" bpmnElement="Gateway_1m9phm7" isMarkerVisible="true">
+        <dc:Bounds x="505" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1qsqjbc_di" bpmnElement="Event_1557fn5">
+        <dc:Bounds x="512" y="262" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0xbjhxi_di" bpmnElement="Activity_0n7anaf">
+        <dc:Bounds x="650" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wmg67y_di" bpmnElement="Event_1wmg67y">
+        <dc:Bounds x="852" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

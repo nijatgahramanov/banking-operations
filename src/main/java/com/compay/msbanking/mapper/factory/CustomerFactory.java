@@ -37,12 +37,7 @@ public class CustomerFactory {
            if(StringUtils.hasText(request.getAddress())){
                customer.setAddress(request.getAddress());
            }
-           if(StringUtils.hasText(request.getFin())){
-               customer.setFin(request.getFin());
-           }
-           if(StringUtils.hasText(request.getLastname())){
-               customer.setLastname(request.getLastname());
-           }
+
            if(StringUtils.hasText(request.getFatherName())){
                customer.setFatherName(request.getFatherName());
            }

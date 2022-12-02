@@ -1,6 +1,7 @@
 package com.compay.msbanking.mapper;
 
 import com.compay.msbanking.dto.request.CardRequest;
+import com.compay.msbanking.dto.response.CardResponse;
 import com.compay.msbanking.entity.Card;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,4 +12,5 @@ public interface CardMapper {
     CardMapper INSTANCE = Mappers.getMapper(CardMapper.class);
 
     Card requestCardToCard(CardRequest requestCard);
+    CardResponse cardToCardResponse(Card card);
 }

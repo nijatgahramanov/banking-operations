@@ -62,12 +62,12 @@ public class CustomerController {
         return camundaUtil.execute("updateCustomer", maps, runtimeService, BaseResponse.class);
     }
 
-    @DeleteMapping
-    public BaseResponse deleteCustomerById(@RequestParam Long id) {
-        Map maps = new LinkedHashMap();
-        maps.put("id", id);
-        return camundaUtil.execute("deleteCustomer", maps, runtimeService, BaseResponse.class);
-    }
+//    @DeleteMapping
+//    public BaseResponse deleteCustomerById(@RequestParam Long id) {
+//        Map maps = new LinkedHashMap();
+//        maps.put("id", id);
+//        return camundaUtil.execute("deleteCustomer", maps, runtimeService, BaseResponse.class);
+//    }
 
 
 }

@@ -3,10 +3,11 @@ package com.compay.msbanking.dto.response;
 import com.compay.msbanking.enums.AccountStatusEnum;
 import com.compay.msbanking.enums.CurrencyEnum;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AccountResponse {
+public class AccountResponse implements Serializable {
     private Long id;
 
     private String iban;
