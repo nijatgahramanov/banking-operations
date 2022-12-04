@@ -1,27 +1,26 @@
-package com.compay.msbanking.delegates.accountDelegate;
+package com.compay.msbanking.delegates.transferDelegate;
 
 import com.compay.msbanking.dto.request.TransferRequest;
-import com.compay.msbanking.entity.Transfer;
-import com.compay.msbanking.enums.TransferStatusEnum;
-import com.compay.msbanking.mapper.factory.TransferFactory;
+import com.compay.msbanking.mapper.TransferMapper;
 import com.compay.msbanking.service.business.TransferBusinessService;
+import com.compay.msbanking.service.functional.AccountFunctionalService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
 
-@Component("savaTransferDelegate")
-public class SaveTransferDelegate implements JavaDelegate {
+@Component("doTransferDelegate")
+public class DoTransferDelegate implements JavaDelegate {
     private final TransferBusinessService transferBusinessService;
+    private final AccountFunctionalService accountFunctionalService;
 
-    public SaveTransferDelegate(TransferBusinessService transferBusinessService) {
+    public DoTransferDelegate(TransferBusinessService transferBusinessService, AccountFunctionalService accountFunctionalService) {
         this.transferBusinessService = transferBusinessService;
+        this.accountFunctionalService = accountFunctionalService;
     }
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         TransferRequest request = (TransferRequest) execution.getVariable("request");
-        Transfer transfer = TransferFactory.convertRequestToTransfer(request)
-                .setStatus(TransferStatusEnum.CREATED);
-        transferBusinessService.saveTransaction(transfer);
+        transferBusinessService.doTransfer(request);
     }
 }

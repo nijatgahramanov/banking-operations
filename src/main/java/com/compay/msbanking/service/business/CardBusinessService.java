@@ -98,4 +98,8 @@ public class CardBusinessService {
         response.setMessage("card succesfully updated");
         return response;
     }
+
+    public Card changeCardBalance(Card card) {
+        return cardFunctionalService.updateCard(card);
+    }
 }
