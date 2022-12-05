@@ -60,6 +60,10 @@ public class CardBusinessService {
         return card;
     }
 
+    public List<Card> getCardByAccountId(Long id) {
+        return cardFunctionalService.getCardByAccountId(id);
+    }
+
     //transfer zamani card var mi yoxlamaq ucundur
     public boolean checkCardAvailable(Long id) {
         if (cardFunctionalService.getCard(id) != null)

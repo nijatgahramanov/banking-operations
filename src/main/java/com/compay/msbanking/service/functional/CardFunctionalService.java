@@ -32,6 +32,10 @@ public class CardFunctionalService {
         return cardRepository.findByActive(1).orElseGet(() -> (new ArrayList()));
     }
 
+    public List<Card> getCardByAccountId(Long id) {
+        return cardRepository.findByAccountId(id).orElse(null);
+    }
+
     public Card updateCard(Card card) {
         return cardRepository.save(card);
     }

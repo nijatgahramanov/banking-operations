@@ -1,33 +1,33 @@
 package com.compay.msbanking.service.business;
 
 import com.compay.msbanking.dto.request.TransferRequest;
-import com.compay.msbanking.dto.response.TransferResponse;
 import com.compay.msbanking.entity.Account;
 import com.compay.msbanking.entity.Card;
 import com.compay.msbanking.entity.Transfer;
-import com.compay.msbanking.entity.TransferType;
 import com.compay.msbanking.enums.CurrencyEnum;
 import com.compay.msbanking.enums.TransferTypeEnum;
-import com.compay.msbanking.mapper.factory.AccountFactory;
-import com.compay.msbanking.mapper.factory.TransferFactory;
 import com.compay.msbanking.service.functional.AccountFunctionalService;
+import com.compay.msbanking.service.functional.CardFunctionalService;
 import com.compay.msbanking.service.functional.TransferFunctionalService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Objects;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TransferBusinessService {
     private final TransferFunctionalService transferFunctionalService;
     private final CardBusinessService cardBusinessService;
     private final AccountFunctionalService accountFunctionalService;
+    private final CardFunctionalService cardFunctionalService;
 
 
-    public TransferBusinessService(TransferFunctionalService transferFunctionalService, CardBusinessService cardBusinessService, AccountFunctionalService accountFunctionalService) {
+    public TransferBusinessService(TransferFunctionalService transferFunctionalService, CardBusinessService cardBusinessService, AccountFunctionalService accountFunctionalService, CardFunctionalService cardFunctionalService) {
         this.transferFunctionalService = transferFunctionalService;
         this.cardBusinessService = cardBusinessService;
         this.accountFunctionalService = accountFunctionalService;
+        this.cardFunctionalService = cardFunctionalService;
     }
 
     //change currency for transfer amount
@@ -82,28 +82,53 @@ public class TransferBusinessService {
 
     //cardLar account un balansi ile ishlesin
     public BigDecimal changeDebitorCardBalance(TransferRequest request, BigDecimal amount) {
-        Card debitorCard = cardBusinessService.getCardById(request.getDebitorCardId());
-        BigDecimal cardFinalBalance = debitorCard.getBalance().subtract(amount);
+        BigDecimal cardAmount = cardBusinessService.getCardById(request.getCreditorCardId()).getBalance().subtract(amount);
+        List<Card> cardList = cardBusinessService.getCardByAccountId(request.getDebitorAccountId());
 
-        debitorCard.setBalance(cardFinalBalance);
-        cardBusinessService.changeCardBalance(debitorCard);
+        cardList.stream()
+                .map((Card card) -> {
+                    card.setBalance(cardAmount);
+                    return card;
+                }).collect(Collectors.toList());
 
-        return cardFinalBalance;
+        cardList.stream()
+                .map((Card card) -> cardBusinessService.changeCardBalance(card));
+        return cardAmount;
     }
 
     //this method change creditorCard balance
     public BigDecimal changeCreditorCardBalance(TransferRequest request, BigDecimal amount) {
-        Card creditorCard = cardBusinessService.getCardById(request.getCreditorCardId());
+        Account account = accountFunctionalService.getAccountById(request.getDebitorAccountId());
         BigDecimal finalAmount = declareAmount(request);
+        BigDecimal cardAmount = cardBusinessService.getCardById(request.getCreditorCardId()).getBalance().add(finalAmount);
+        List<Card> cardList = cardBusinessService.getCardByAccountId(request.getCreditorAccountId());
 
-        BigDecimal finalCreditorCardBalance = creditorCard.getBalance().add(finalAmount);
+        cardList.stream().map((Card card) -> {
+            card.setBalance(cardAmount);
+            return card;
+        }).collect(Collectors.toList());
 
-        creditorCard.setBalance(finalCreditorCardBalance);
-
-        cardBusinessService.changeCardBalance(creditorCard);
-
-        return finalCreditorCardBalance;
+        cardList.stream()
+                .map((Card card) -> cardBusinessService.changeCardBalance(card));
+        return cardAmount;
     }
+
+//    public BigDecimal foo(TransferRequest request) {
+//        Account account = accountFunctionalService.getAccountById(request.getDebitorAccountId());
+//        BigDecimal finalAmount = declareAmount(request);
+//        BigDecimal cardAmount = cardBusinessService.getCardById(request.getCreditorCardId()).getBalance().add(finalAmount);
+//        List<Card> cardList = cardBusinessService.getCardByAccountId(request.getCreditorCardId());
+//
+//         cardList.stream().map((Card card)->{
+//            card.setBalance(cardAmount);
+//            return card;
+//        }).collect(Collectors.toList());
+//
+//         cardList.stream().map((Card card)->cardBusinessService.changeCardBalance(card));
+//
+//
+//        return null;
+//    }
 
 
     //this method declare final amount for creditor account or creditorCard
