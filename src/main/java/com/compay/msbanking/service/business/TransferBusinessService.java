@@ -30,13 +30,6 @@ public class TransferBusinessService {
         this.accountFunctionalService = accountFunctionalService;
     }
 
-    //check debitor card
-//    public boolean checkDebitor(TransferRequest request) {
-//        if (cardBusinessService.getCard(request.getDebitorCardId()) != null)
-//            return true;
-//        return false;
-//    }
-
     //change currency for transfer amount
     public BigDecimal convertCurrency(BigDecimal amount, Account debitorAccount, Account creditorAccount) {
         if (debitorAccount.getCurrency() == CurrencyEnum.AZN && creditorAccount.getCurrency() == CurrencyEnum.USD) {
@@ -48,16 +41,14 @@ public class TransferBusinessService {
         }
     }
 
+    //this method provide all transaction
     public void doTransfer(TransferRequest request) {
         BigDecimal creditChangeAmount = declareAmount(request);
-        if (request.getTransferType() == TransferTypeEnum.ACCOUNT_TO_ACCOUNT) {
-            changeDebitorBalance(request, request.getDebitorAmount());
+        changeDebitorBalance(request, request.getDebitorAmount());
+        changeCreditorBalance(request, creditChangeAmount); //kocurmeleri test et
+        changeDebitorCardBalance(request, request.getDebitorAmount());
+        changeCreditorCardBalance(request, creditChangeAmount);
 
-            changeCreditorBalance(request, creditChangeAmount); //kocurmeleri test et
-        } else {
-            changeDebitorCardBalance(request, request.getDebitorAmount());
-            changeCreditorCardBalance(request, creditChangeAmount);
-        }
     }
 
 
@@ -89,40 +80,33 @@ public class TransferBusinessService {
         return finalCreditorAccountBalance;
     }
 
+    //cardLar account un balansi ile ishlesin
     public BigDecimal changeDebitorCardBalance(TransferRequest request, BigDecimal amount) {
-        Account debitorAccount = accountFunctionalService.getAccountById(request.getDebitorAccountId());
         Card debitorCard = cardBusinessService.getCardById(request.getDebitorCardId());
-
-        BigDecimal accountFinalBalance = debitorAccount.getBalance().subtract(amount);
         BigDecimal cardFinalBalance = debitorCard.getBalance().subtract(amount);
 
         debitorCard.setBalance(cardFinalBalance);
-        debitorAccount.setBalance(accountFinalBalance);
-
-        accountFunctionalService.updateAccount(debitorAccount);
         cardBusinessService.changeCardBalance(debitorCard);
 
         return cardFinalBalance;
     }
 
+    //this method change creditorCard balance
     public BigDecimal changeCreditorCardBalance(TransferRequest request, BigDecimal amount) {
-        Account creditorAccount = accountFunctionalService.getAccountById(request.getCreditorAccountId());
         Card creditorCard = cardBusinessService.getCardById(request.getCreditorCardId());
         BigDecimal finalAmount = declareAmount(request);
 
         BigDecimal finalCreditorCardBalance = creditorCard.getBalance().add(finalAmount);
-        BigDecimal finalCreditorAccountBalance = creditorAccount.getBalance().add(finalAmount);
 
-        creditorAccount.setBalance(finalCreditorAccountBalance);
         creditorCard.setBalance(finalCreditorCardBalance);
 
         cardBusinessService.changeCardBalance(creditorCard);
-        accountFunctionalService.updateAccount(creditorAccount);
 
         return finalCreditorCardBalance;
     }
 
 
+    //this method declare final amount for creditor account or creditorCard
     public BigDecimal declareAmount(TransferRequest request) {
         Account debitorAccount = accountFunctionalService.getAccountById(request.getDebitorAccountId());
         Account creditorAccount = accountFunctionalService.getAccountById(request.getCreditorAccountId());

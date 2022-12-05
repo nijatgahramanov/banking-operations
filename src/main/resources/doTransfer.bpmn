@@ -206,7 +206,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1wmsfvo">
       <bpmndi:BPMNShape id="Participant_13ew2vo_di" bpmnElement="Participant_13ew2vo" isHorizontal="true">
-        <dc:Bounds x="170" y="80" width="3370" height="490" />
+        <dc:Bounds x="170" y="80" width="2990" height="490" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1xv303q_di" bpmnElement="Flow_1xv303q">
         <di:waypoint x="2330" y="402" />

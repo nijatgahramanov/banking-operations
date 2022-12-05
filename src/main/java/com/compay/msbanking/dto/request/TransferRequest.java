@@ -14,15 +14,14 @@ public class TransferRequest implements Serializable {
     private Long creditorAccountId;
     private BigDecimal debitorAmount;
     private CurrencyEnum debitorCurrency;
-    private BigDecimal creditorAmount;
-    private CurrencyEnum creditorCurrency;
+    //private BigDecimal creditorAmount;
+    //private CurrencyEnum creditorCurrency;
     private TransferTypeEnum transferType;
     private TransferStatusEnum status;
 
     public TransferRequest(Long debitorCardId, Long creditorCardId,
                            Long debitorAccountId, Long creditorAccountId,
                            BigDecimal debitorAmount, CurrencyEnum debitorCurrency,
-                           BigDecimal creditorAmount, CurrencyEnum creditorCurrency,
                            TransferTypeEnum transferType, TransferStatusEnum status) {
         this.debitorCardId = debitorCardId;
         this.creditorCardId = creditorCardId;
@@ -30,8 +29,6 @@ public class TransferRequest implements Serializable {
         this.creditorAccountId = creditorAccountId;
         this.debitorAmount = debitorAmount;
         this.debitorCurrency = debitorCurrency;
-        this.creditorAmount = creditorAmount;
-        this.creditorCurrency = creditorCurrency;
         this.transferType = transferType;
         this.status = status;
     }
@@ -93,23 +90,6 @@ public class TransferRequest implements Serializable {
         return this;
     }
 
-    public BigDecimal getCreditorAmount() {
-        return creditorAmount;
-    }
-
-    public TransferRequest setCreditorAmount(BigDecimal creditorAmount) {
-        this.creditorAmount = creditorAmount;
-        return this;
-    }
-
-    public CurrencyEnum getCreditorCurrency() {
-        return creditorCurrency;
-    }
-
-    public TransferRequest setCreditorCurrency(CurrencyEnum creditorCurrency) {
-        this.creditorCurrency = creditorCurrency;
-        return this;
-    }
 
     public TransferTypeEnum getTransferType() {
         return transferType;
@@ -138,8 +118,6 @@ public class TransferRequest implements Serializable {
                 ", creditorAccountId=" + creditorAccountId +
                 ", debitorAmount=" + debitorAmount +
                 ", debitorCurrency=" + debitorCurrency +
-                ", creditorAmount=" + creditorAmount +
-                ", creditorCurrency=" + creditorCurrency +
                 ", transferType=" + transferType +
                 ", status=" + status +
                 '}';
