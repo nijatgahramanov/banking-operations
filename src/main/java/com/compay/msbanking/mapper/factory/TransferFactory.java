@@ -14,7 +14,6 @@ public class TransferFactory {
                 .setDebitorAccountId(request.getDebitorAccountId())
                 .setDebitorCardId(request.getDebitorCardId())
                 .setActive(1)
-                .setDebitorCurrency(request.getDebitorCurrency())
                 .setDebitorAmount(request.getDebitorAmount())
                 .setTransferType(request.getTransferType())
                 .setCreateDate(new Date());

@@ -192,6 +192,21 @@
       <bpmn:incoming>Flow_18ewpq8</bpmn:incoming>
       <bpmn:errorEventDefinition id="ErrorEventDefinition_1fbd0it" errorRef="Error_1kpi3p9" />
     </bpmn:endEvent>
+    <bpmn:subProcess id="Activity_0ahwrxw" triggeredByEvent="true">
+      <bpmn:startEvent id="Event_1x9cwhk">
+        <bpmn:outgoing>Flow_0gu53av</bpmn:outgoing>
+        <bpmn:errorEventDefinition id="ErrorEventDefinition_109h2wc" camunda:errorCodeVariable="errorCode" camunda:errorMessageVariable="errorMessage" />
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_0gu53av" sourceRef="Event_1x9cwhk" targetRef="Activity_1rq7dqx" />
+      <bpmn:endEvent id="Event_1mcgo4i">
+        <bpmn:incoming>Flow_0aj86j9</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_0aj86j9" sourceRef="Activity_1rq7dqx" targetRef="Event_1mcgo4i" />
+      <bpmn:serviceTask id="Activity_1rq7dqx" name="error" camunda:delegateExpression="${errorDelegate}">
+        <bpmn:incoming>Flow_0gu53av</bpmn:incoming>
+        <bpmn:outgoing>Flow_0aj86j9</bpmn:outgoing>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
   </bpmn:process>
   <bpmn:error id="Error_090e6y9" name="Error_30qplnb" errorCode="505" camunda:errorMessage="Account is blocked" />
   <bpmn:error id="Error_0wv5xdf" name="Error_3rh9726" errorCode="555" camunda:errorMessage="Account nof found" />
@@ -206,7 +221,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1wmsfvo">
       <bpmndi:BPMNShape id="Participant_13ew2vo_di" bpmnElement="Participant_13ew2vo" isHorizontal="true">
-        <dc:Bounds x="170" y="80" width="2990" height="490" />
+        <dc:Bounds x="170" y="110" width="2950" height="460" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1xv303q_di" bpmnElement="Flow_1xv303q">
         <di:waypoint x="2330" y="402" />
@@ -427,6 +442,26 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0jqoe3n_di" bpmnElement="Event_196b458">
         <dc:Bounds x="1712" y="502" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1kw13zk_di" bpmnElement="Activity_0ahwrxw" isExpanded="true">
+        <dc:Bounds x="800" y="140" width="350" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0gu53av_di" bpmnElement="Flow_0gu53av">
+        <di:waypoint x="876" y="240" />
+        <di:waypoint x="930" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0aj86j9_di" bpmnElement="Flow_0aj86j9">
+        <di:waypoint x="1030" y="240" />
+        <di:waypoint x="1092" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1nk0oyo_di" bpmnElement="Event_1x9cwhk">
+        <dc:Bounds x="840" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1mcgo4i_di" bpmnElement="Event_1mcgo4i">
+        <dc:Bounds x="1092" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_048s09h_di" bpmnElement="Activity_1rq7dqx">
+        <dc:Bounds x="930" y="200" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1c36x3t_di" bpmnElement="DataOutputAssociation_1c36x3t">
         <di:waypoint x="320" y="442" />

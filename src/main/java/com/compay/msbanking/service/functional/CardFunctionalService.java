@@ -41,6 +41,6 @@ public class CardFunctionalService {
     }
 
     public Card findCardByNumber(String number) {
-        return cardRepository.findByNumber(number).orElseThrow(() -> (BaseException.of(ErrorEnum.CARD_NOT_FOUND)));
+        return cardRepository.findByNumber(number).orElse(null);
     }
 }

@@ -13,22 +13,18 @@ public class TransferRequest implements Serializable {
     private Long debitorAccountId;
     private Long creditorAccountId;
     private BigDecimal debitorAmount;
-    private CurrencyEnum debitorCurrency;
-    //private BigDecimal creditorAmount;
-    //private CurrencyEnum creditorCurrency;
     private TransferTypeEnum transferType;
     private TransferStatusEnum status;
 
     public TransferRequest(Long debitorCardId, Long creditorCardId,
                            Long debitorAccountId, Long creditorAccountId,
-                           BigDecimal debitorAmount, CurrencyEnum debitorCurrency,
-                           TransferTypeEnum transferType, TransferStatusEnum status) {
+                           BigDecimal debitorAmount, TransferTypeEnum transferType,
+                           TransferStatusEnum status) {
         this.debitorCardId = debitorCardId;
         this.creditorCardId = creditorCardId;
         this.debitorAccountId = debitorAccountId;
         this.creditorAccountId = creditorAccountId;
         this.debitorAmount = debitorAmount;
-        this.debitorCurrency = debitorCurrency;
         this.transferType = transferType;
         this.status = status;
     }
@@ -81,15 +77,6 @@ public class TransferRequest implements Serializable {
         return this;
     }
 
-    public CurrencyEnum getDebitorCurrency() {
-        return debitorCurrency;
-    }
-
-    public TransferRequest setDebitorCurrency(CurrencyEnum debitorCurrency) {
-        this.debitorCurrency = debitorCurrency;
-        return this;
-    }
-
 
     public TransferTypeEnum getTransferType() {
         return transferType;
@@ -117,7 +104,6 @@ public class TransferRequest implements Serializable {
                 ", debitorAccountId=" + debitorAccountId +
                 ", creditorAccountId=" + creditorAccountId +
                 ", debitorAmount=" + debitorAmount +
-                ", debitorCurrency=" + debitorCurrency +
                 ", transferType=" + transferType +
                 ", status=" + status +
                 '}';
