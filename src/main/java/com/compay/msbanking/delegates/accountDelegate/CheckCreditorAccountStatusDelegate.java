@@ -18,9 +18,8 @@ public class CheckCreditorAccountStatusDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        TransferRequest request = (TransferRequest) execution.getVariable("request");
-        Account account = accountFunctionalService.getAccountById(request.getDebitorAccountId());
-        boolean activeCreditorAccount = accountFunctionalService.checkAccountStatus(account);
+        Account creditorAccount = (Account) execution.getVariable("creditorAccount");
+        boolean activeCreditorAccount = accountFunctionalService.checkAccountStatus(creditorAccount);
         execution.setVariable("activeCreditorAccount", activeCreditorAccount);
     }
 }

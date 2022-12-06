@@ -1,6 +1,7 @@
 package com.compay.msbanking.delegates.accountDelegate;
 
 import com.compay.msbanking.dto.request.TransferRequest;
+import com.compay.msbanking.entity.Account;
 import com.compay.msbanking.service.business.AccountBusinessService;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -19,7 +20,7 @@ public class CheckCreditorAccountByIdDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         TransferRequest request = (TransferRequest) execution.getVariable("request");
-        boolean haveCreditorAccount = accountBusinessService.checkAccountAvailable(request.getCreditorAccountId());
-        execution.setVariable("haveCreditorAccount",haveCreditorAccount);
+        Account creditorAccount = accountBusinessService.getAccountById(request.getCreditorAccountId());
+        execution.setVariable("creditorAccount",creditorAccount);
     }
 }

@@ -14,19 +14,16 @@ public class TransferRequest implements Serializable {
     private Long creditorAccountId;
     private BigDecimal debitorAmount;
     private TransferTypeEnum transferType;
-    private TransferStatusEnum status;
 
     public TransferRequest(Long debitorCardId, Long creditorCardId,
                            Long debitorAccountId, Long creditorAccountId,
-                           BigDecimal debitorAmount, TransferTypeEnum transferType,
-                           TransferStatusEnum status) {
+                           BigDecimal debitorAmount, TransferTypeEnum transferType) {
         this.debitorCardId = debitorCardId;
         this.creditorCardId = creditorCardId;
         this.debitorAccountId = debitorAccountId;
         this.creditorAccountId = creditorAccountId;
         this.debitorAmount = debitorAmount;
         this.transferType = transferType;
-        this.status = status;
     }
 
     public TransferRequest() {
@@ -87,14 +84,6 @@ public class TransferRequest implements Serializable {
         return this;
     }
 
-    public TransferStatusEnum getStatus() {
-        return status;
-    }
-
-    public TransferRequest setStatus(TransferStatusEnum status) {
-        this.status = status;
-        return this;
-    }
 
     @Override
     public String toString() {
@@ -105,7 +94,6 @@ public class TransferRequest implements Serializable {
                 ", creditorAccountId=" + creditorAccountId +
                 ", debitorAmount=" + debitorAmount +
                 ", transferType=" + transferType +
-                ", status=" + status +
                 '}';
     }
 }

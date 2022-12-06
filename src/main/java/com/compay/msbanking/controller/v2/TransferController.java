@@ -23,6 +23,6 @@ public class TransferController {
 
     @PostMapping
     public BaseResponse doTransfer(@RequestBody TransferRequest request) {
-        return camundaUtil.execute("doTransfer", request, runtimeService, BaseResponse.class);
+        return camundaUtil.execute("DoTransfer", request, runtimeService, BaseResponse.class);
     }
 }

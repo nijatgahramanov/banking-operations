@@ -18,7 +18,11 @@ public class CheckDebitorCardIdDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         TransferRequest request = (TransferRequest) execution.getVariable("request");
-        Card card = cardFunctionalService.getCard(request.getDebitorCardId());
-        execution.setVariable("debitorCard", card);
+        Card debitorCard = cardFunctionalService.getCard(request.getDebitorCardId());
+        if (debitorCard != null) {
+            request.setDebitorAccountId(debitorCard.getAccount().getId());
+        }
+        execution.setVariable("request", request);
+        execution.setVariable("debitorCard", debitorCard);
     }
 }

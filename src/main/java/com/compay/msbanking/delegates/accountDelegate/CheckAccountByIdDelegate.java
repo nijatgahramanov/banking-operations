@@ -1,6 +1,7 @@
 package com.compay.msbanking.delegates.accountDelegate;
 
 import com.compay.msbanking.dto.request.TransferRequest;
+import com.compay.msbanking.entity.Account;
 import com.compay.msbanking.entity.Transfer;
 import com.compay.msbanking.enums.TransferStatusEnum;
 import com.compay.msbanking.mapper.factory.TransferFactory;
@@ -23,11 +24,7 @@ public class CheckAccountByIdDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         TransferRequest request = (TransferRequest) execution.getVariable("request");
-//        Transfer transfer = TransferFactory.convertRequestToTransfer(request)
-//                .setStatus(TransferStatusEnum.CREATED);
-//        transferBusinessService.saveTransaction(transfer);
-        boolean haveAccount = accountBusinessService.checkAccountAvailable(request.getDebitorAccountId());
-        //execution.setVariable("transfer", transfer);
-        execution.setVariable("haveAccount", haveAccount);
+        Account debitorAccount = accountBusinessService.getAccountById(request.getDebitorAccountId());
+        execution.setVariable("debitorAccount", debitorAccount);
     }
 }

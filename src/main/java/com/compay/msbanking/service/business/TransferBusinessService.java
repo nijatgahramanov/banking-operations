@@ -82,7 +82,8 @@ public class TransferBusinessService {
 
     //cardLar account un balansi ile ishlesin
     public BigDecimal changeDebitorCardBalance(TransferRequest request, BigDecimal amount) {
-        BigDecimal cardAmount = cardBusinessService.getCardById(request.getDebitorCardId()).getBalance().subtract(amount);
+        BigDecimal cardAmount = accountFunctionalService.getAccountById(request.getDebitorAccountId()).getBalance();
+                //cardBusinessService.getCardById(request.getDebitorCardId()).getBalance().subtract(amount);
         List<Card> cardList = cardBusinessService.getCardByAccountId(request.getDebitorAccountId());
 
         cardList.stream()
@@ -98,7 +99,7 @@ public class TransferBusinessService {
 
     //this method change creditorCard balance
     public BigDecimal changeCreditorCardBalance(TransferRequest request, BigDecimal amount) {
-        BigDecimal cardAmount = cardBusinessService.getCardById(request.getCreditorCardId()).getBalance().add(amount);
+        BigDecimal cardAmount = accountFunctionalService.getAccountById(request.getCreditorAccountId()).getBalance();
         List<Card> cardList = cardBusinessService.getCardByAccountId(request.getCreditorAccountId());
 
         cardList.stream().map((Card card) -> {

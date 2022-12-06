@@ -45,9 +45,8 @@ public class AccountBusinessService {
     }
 
 
-    public AccountResponse getAccountById(Long id) {
-        AccountResponse accountResponse = AccountFactory.convertAccountToResponse(accountFunctionalService.getAccountById(id));
-        return accountResponse;
+    public Account getAccountById(Long id) {
+       return accountFunctionalService.getAccountById(id);
     }
 
 
@@ -77,9 +76,7 @@ public class AccountBusinessService {
 
     public boolean checkBalance(BigDecimal amount, TransferRequest request) {
         Account account = accountFunctionalService.getAccountById(request.getDebitorAccountId());
-        if (account.getBalance().compareTo(amount) == 1 || account.getBalance().compareTo(amount) == 0)
-            return true;
-        return false;
+        return account.getBalance().compareTo(amount) != -1;
     }
 
 

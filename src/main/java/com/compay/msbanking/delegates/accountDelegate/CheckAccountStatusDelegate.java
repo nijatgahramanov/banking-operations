@@ -26,9 +26,8 @@ public class CheckAccountStatusDelegate implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        TransferRequest request = (TransferRequest) execution.getVariable("request");
-        Account account = accountFunctionalService.getAccountById(request.getDebitorAccountId());
-        boolean activeAccount = accountFunctionalService.checkAccountStatus(account);
-        execution.setVariable("activeAccount", activeAccount);
+        Account debitorAccount = (Account) execution.getVariable("debitorAccount");
+        boolean activeDebitorAccount = accountFunctionalService.checkAccountStatus(debitorAccount);
+        execution.setVariable("activeDebitorAccount", activeDebitorAccount);
     }
 }
